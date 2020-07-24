@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>React WITH NOTES Y'ALL</title>
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body>
     <div id="root"></div>
@@ -17,32 +18,51 @@
             constructor (props) {
                 super(props)
 
+                const initialCount = Number(this.props.initialCount) || 0
                 this.state = {
-                    count: 0
+                    initialCount: initialCount,
+                    count: initialCount
                 }
 
                 this.handleIncrement = this.handleIncrement.bind(this)
                 this.handleDecrement = this.handleDecrement.bind(this)
+                this.handleReset = this.handleReset.bind(this)
             }
 
             handleIncrement (event) {
+                if (this.state.count >= 20) return
+
                 this.setState((state, props) => (
                     { count: state.count + 1 }
                 ))
             }
-
+                
             handleDecrement (event) {
+                if (this.state.count <= 0) return
+                
                 this.setState((state, props) => (
                     { count: state.count - 1 }
                 ))
             }
 
+            handleReset (event) {
+                this.setState((state, props) => (
+                    { count: state.initialCount }
+                ))
+            }
+
             render () {
+                let color = "black"
+                if (this.state.count >= 10) {
+                    color = "red"
+                }
+
                 return (
                     <div>
                         <button onClick={ this.handleDecrement }>Decrement</button>
-                        <h4>Current Count: { this.state.count }</h4>
+                        <h4>Current Count: <span className={ color }>{ this.state.count }</span></h4>
                         <button onClick={ this.handleIncrement }>Increment</button>
+                        <button onClick={ this.handleReset }>Reset</button>
                     </div>
                 )
             }
@@ -51,8 +71,10 @@
 
 
         const element = (
-            <div> 
-                <Counter />
+            <div>
+                <Counter initialCount="1" />
+                <br /><br />
+                <Counter initialCount={0} />
             </div>
         )
 
