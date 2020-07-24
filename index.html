@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React WITH NOTES Y'ALL</title>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script crossorigin src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+    <script type="text/babel">
+        class Counter extends React.Component {
+            constructor (props) {
+                super(props)
+
+                this.state = {
+                    count: 0
+                }
+
+                this.handleIncrement = this.handleIncrement.bind(this)
+                this.handleDecrement = this.handleDecrement.bind(this)
+            }
+
+            handleIncrement (event) {
+                this.setState((state, props) => (
+                    { count: state.count + 1 }
+                ))
+            }
+
+            handleDecrement (event) {
+                this.setState((state, props) => (
+                    { count: state.count - 1 }
+                ))
+            }
+
+            render () {
+                return (
+                    <div>
+                        <button onClick={ this.handleDecrement }>Decrement</button>
+                        <h4>Current Count: { this.state.count }</h4>
+                        <button onClick={ this.handleIncrement }>Increment</button>
+                    </div>
+                )
+            }
+        }
+
+
+
+        const element = (
+            <div> 
+                <Counter />
+            </div>
+        )
+
+        ReactDOM.render(
+            element,
+            document.querySelector("#root")
+        )
+    </script>
+</body>
+</html>
